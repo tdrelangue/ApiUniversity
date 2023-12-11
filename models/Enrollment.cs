@@ -11,6 +11,13 @@ public class Enrollment
 
     public Enrollment() { }
 
+    public Enrollment(DetailedEnrollmentDTO enrollmentDTO)
+    {
+        Grade = enrollmentDTO.Grade;
+        Student = new Student (enrollmentDTO.StudentDto);
+        Course = new Course (enrollmentDTO.CourseDto);
+    }
+
     public Enrollment(EnrollmentDTO enrollmentDTO)
     {
         Grade = enrollmentDTO.Grade;

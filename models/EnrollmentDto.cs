@@ -8,6 +8,8 @@ public class EnrollmentDTO
     public int StudentId { get; set; }
     public int CourseId { get; set; } 
 
+    public EnrollmentDTO() {}
+
     public EnrollmentDTO(Enrollment enrollment) 
     { 
         Id = enrollment.Id;

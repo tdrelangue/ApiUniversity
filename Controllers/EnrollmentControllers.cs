@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 namespace ApiUniversity.Controllers;
 
 [ApiController]
-[Route("api/enrollment")]
+[Route("api/enrollmentApi")]
 public class EnrollmentController : ControllerBase
 {
     private readonly UniversityContext _context;
@@ -21,9 +21,9 @@ public class EnrollmentController : ControllerBase
     public async Task<ActionResult<DetailedEnrollmentDTO>> GetEnrollment(int id)
     {
         var enrollment = await _context.Enrollments
-                                .Include(x => x.Student)
-                                .Include(x => x.Course)
-                                .SingleOrDefaultAsync(s => s.Id == id);
+                                       .Include(x => x.Student)
+                                       .Include(x => x.Course)
+                                       .SingleOrDefaultAsync(s => s.Id == id);
         
         if (enrollment == null)
         {
@@ -58,6 +58,16 @@ public class EnrollmentController : ControllerBase
         enrollment.Course = course;
         _context.Enrollments.Add(enrollment);
         await _context.SaveChangesAsync();
+
+        try
+        {
+            await _context.SaveChangesAsync();
+        }
+        catch (DbUpdateException)
+        {
+            System.Console.WriteLine("prout");
+            return BadRequest();
+        }
 
         return CreatedAtAction(
             nameof(GetEnrollment),

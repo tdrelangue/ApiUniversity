@@ -45,9 +45,9 @@ public class StudentApiController : ControllerBase
    }
 
     //POST: api/StudentApi
-   [HttpPost]
-   public async Task<ActionResult<Student>> PostStudent(StudentDTO studentDto)
-   {
+    [HttpPost]
+    public async Task<ActionResult<Student>> PostStudent(StudentDTO studentDto)
+    {
         var student = new Student(){
             FirstName = studentDto.FirstName,
             LastName = studentDto.LastName,
@@ -57,8 +57,8 @@ public class StudentApiController : ControllerBase
         _context.Students.Add(student);
         await _context.SaveChangesAsync();
 
-       return CreatedAtAction("PostStudent", new { id = student.Id }, student);
-   }
+        return CreatedAtAction("PostStudent", new { id = student.Id }, student);
+    }
 
     //how the fuck do you delete this with a DTO
     // DELETE: api/StudentApi/5
